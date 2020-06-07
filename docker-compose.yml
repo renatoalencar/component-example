@@ -1,0 +1,20 @@
+version: '3'
+services:
+  web:
+    image: clojure:lein
+    command: lein run-component
+    environment:
+      DATABASE_URL: mongodb://mongo:mongo@mongo/example
+    volumes:
+      - ".:/usr/src/app"
+    ports:
+      - "3000:3000"
+    working_dir: /usr/src/app
+  mongo:
+    image: bitnami/mongodb
+    environment:
+      MONGODB_PASSWORD: mongo
+      MONGODB_USERNAME: mongo
+      MONGODB_DATABASE: example
+    ports:
+      - "27017:27017"
